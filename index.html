@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Unit 2 Segment 2</title>
+    <!--Import Google Icon Font-->
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel='stylesheet' type='text/css' media='screen' href='segment2.css'>
+    <link rel="icon" href="fblogo.png">
+</head>
+
+<body>
+    <div class='containter'>
+        <center>
+            <h2>Input Username Below</h2>
+            <input type="text" id='username' placeholder="Input Username"
+                style='color:#f8f8f2;text-align:center;font-size:25px;width:50%;'>
+            <a class="waves-effect waves-light btn" onclick='getUserData()' style='background-color:#ff5555;'>Get User</a>
+            <center>
+                <table class='table'>
+                    <tr><th id='tableTitle'>ID</th><th id='idname'></th></tr>
+                    <tr><th id='tableTitle'>Name</th><th id='name'></th></tr>
+                </table>
+            </center>
+        </center>
+    </div>
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyAr0J-PXfZwxRbio0dWtxt64qd9O4sB2kY",
+            authDomain: "year10designfirebasedemozg.firebaseapp.com",
+            databaseURL: "https://year10designfirebasedemozg.firebaseio.com",
+            projectId: "year10designfirebasedemozg",
+            storageBucket: "year10designfirebasedemozg.appspot.com",
+            messagingSenderId: "445964366173",
+            appId: "1:445964366173:web:c307374f6ab987c38c38b4",
+            measurementId: "G-PWQ5DD6X6Q"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+        var database = firebase.database();
+
+        var updateDisplay = database.ref('users/');
+        updateDisplay.on('value', (snapshot) => {
+            const data = snapshot.val();
+            const dataStr = JSON.stringify(data);
+            console.log('Data:' + data);
+            console.log('***********')
+            console.log('Data String: ' + dataStr)
+        });
+
+        function getUserData(id){
+        id = document.getElementById('username').value
+        var userIdName= database.ref('users/' + id + '/name');
+        userIdName.on('value', (snapshot) =>{
+            const Ndata = snapshot.val();
+            const name = document.getElementById('name');
+            name.innerHTML = 'No Name Available';
+                document.getElementById('idname').innerHTML = id;
+            if(name.value === ''){
+                name.innerHTML = 'No Name Available';
+                document.getElementById('idname').innerHTML = id;
+            }
+            else{
+                name.innerHTML = Ndata;
+                document.getElementById('idname').innerHTML = id;
+            }
+        console.log(id, name);
+    })}
+
+    </script>
+</body>
+
+</html>
