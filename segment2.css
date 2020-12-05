@@ -1,0 +1,17 @@
+body{
+    margin:0px;
+    background-color:#44475a;
+    color:#f8f8f2;
+}
+.table{
+    border:2px solid #ff5555;
+    width:50%;
+}
+d, th{
+    border:1px solid #ff5555;
+    text-align: left;
+    padding:8px;
+}
+#tableTitle{
+    width:50%;
+}
